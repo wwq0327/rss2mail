@@ -21,3 +21,6 @@ BLOG_ADDR_LIST = ["http://sociallearnlab.org/xiuli/?feed=rss2",
 MAX_DT_DAYS = 7 # 7, 表示读当前日期7天前的记录，含当前日期
 
 # 邮件发送相关配置
+
+MAIL_SERVER = 'smtp.gmail.com'
+FROM_EMAIL = TO_EMAIL = 'wwq0327@gmial.com'

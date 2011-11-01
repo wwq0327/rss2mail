@@ -15,7 +15,8 @@ import feedparser
 from dateutil import parser, rrule
 
 MAX_DT_DAYS = 7
-blog_addr = "http://sociallearnlab.org/xiuli/?feed=rss2"
+blog_addr = ["http://sociallearnlab.org/xiuli/?feed=rss2",
+             "http://linuxtoy.org/?feed=rss2"]
 
 def rss_parser(rssaddr):
     """返回解析对象
@@ -62,6 +63,8 @@ def store_recoder(blog):
         return False
 
 def feed(d):
+    """解析并输出结单个博客RSS结果"""
+    
     dict_list = []
 
     for i in xrange(10):
@@ -75,12 +78,12 @@ def feed(d):
     return dict_list
 
 def main():
-    
-    rss = rss_parser(blog_addr)
-    dict_list = feed(rss)
-
-    for d in dict_list:
-        print d['title'], d['link'], d['updated']
+    for addr in blog_addr:
+        rss = rss_parser(addr)
+        dict_list = feed(rss)
+        
+        for d in dict_list:
+            print d['title'], d['link'], d['updated']
 
 if __name__ == '__main__':
     main()

@@ -16,10 +16,6 @@ from dateutil import parser, rrule
 
 import config
 
-# MAX_DT_DAYS = 7
-# blog_addr = ["http://sociallearnlab.org/xiuli/?feed=rss2",
-#              "http://linuxtoy.org/?feed=rss2"]
-
 def rss_parser(rssaddr):
     """返回解析对象
 

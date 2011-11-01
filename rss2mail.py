@@ -21,10 +21,11 @@ def read_blog(entries):
     blog_info = {}
     if entries:
         blog_info['title'] = entries.title
+        blog_info['updated'] = entries.updated
+        blog_info['link'] = entries.link
+        blog_info['content'] = entries.summary[0:140]
 
-        da_list.append(blog_info)
-
-    return da_list
+    return blog_info
 
 def main():
     d = feedparser.parse(blog_addr)

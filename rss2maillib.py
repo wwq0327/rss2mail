@@ -48,12 +48,12 @@ def store_recoder(blog):
     """
     
     updated = blog['updated']
-    blog_time = parser.parse(updated) ## 解析日期
+    blog_time = parser.parse(updated) ## 解析日期, 很强大
     my_d = blog_time.strftime("%Y-%m-%d %H")
     my_time = datetime.datetime.strptime(my_d, "%Y-%m-%d %H") ## 转换成rrule可读日期对象
     td_now = datetime.datetime.now()
 
-    days = rrule.rrule(rrule.DAILY, dtstart=my_time, until=td_now).count() ## 获取RSS日期与当前日期所差天数 
+    days = rrule.rrule(rrule.DAILY, dtstart=my_time, until=td_now).count() ## 获取RSS日期与当前日期所差天数，dateutil太强了，向开发者致敬
 
     if 0 <= days <= config.MAX_DT_DAYS:
         return True

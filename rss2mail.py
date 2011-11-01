@@ -17,6 +17,15 @@ from dateutil import parser, rrule
 MAX_DAYS = 7
 blog_addr = "http://sociallearnlab.org/xiuli/?feed=rss2"
 
+def rss_parser(rssaddr):
+    """返回解析对象
+
+    :param rssaddr: 博客的RSS地址
+
+    """
+    
+    return feedparser.parse(rssaddr)
+
 def read_blog(entries):
     """读取一条日志, 返回字典：
     
@@ -53,17 +62,23 @@ def store_recoder(blog):
     else:
         return False
 
-def main():
+def feed(d):
     dict_list = []
-    d = feedparser.parse(blog_addr)
-    
-    ## 读取博客的前十条RSS
+
     for i in xrange(10):
         entries = d.entries[i]
         result = read_blog(entries)
         rss = store_recoder(result)
+
         if rss:
             dict_list.append(result)
+
+    return dict_list
+
+def main():
+    
+    rss = rss_parser(blog_addr)
+    dict_list = feed(rss)
 
     for d in dict_list:
         print d['title'], d['link'], d['updated']

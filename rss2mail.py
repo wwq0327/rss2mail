@@ -18,7 +18,6 @@ blog_addr = "http://sociallearnlab.org/xiuli/?feed=rss2"
 
 def read_blog(entries):
     '''读取一条日志'''
-    ## da_list = []
 
     blog_info = {}
     if entries:
@@ -30,8 +29,10 @@ def read_blog(entries):
     return blog_info
 
 def store_recoder(blog):
+    """读取单条RSS信息内容，并与限定时间进行比较，
+    如果在限定时间范围之类，则输出。
+    """
     updated_time = blog['updated']
-    #print updated_time
     blog_time = parser.parse(updated_time)
     my_d = blog_time.strftime("%Y-%m-%d %H")
     my_time = datetime.datetime.strptime(my_d, "%Y-%m-%d %H")
@@ -39,23 +40,26 @@ def store_recoder(blog):
     td_now = datetime.datetime.now()
 
     days = rrule.rrule(rrule.DAILY, dtstart=my_time, until=td_now).count()
-    #print days
 
-    if 0 <= days <= 10:
-        print blog['title']
+    if 0 <= days <= 7:
+        return True
     else:
-        print '无记录'
+        return False
 
 def main():
+    dict_list = []
     d = feedparser.parse(blog_addr)
-
+    
+    ## 读取博客的前十条RSS
     for i in xrange(10):
         entries = d.entries[i]
         result = read_blog(entries)
+        rss = store_recoder(result)
+        if rss:
+            dict_list.append(result)
 
-        store_recoder(result)
-
-        #print result
+    for d in dict_list:
+        print d['title'], d['link'], d['updated']
 
 if __name__ == '__main__':
     main()

@@ -14,7 +14,7 @@ import datetime
 import feedparser
 from dateutil import parser, rrule
 
-MAX_DAYS = 7
+MAX_DT_DAYS = 7
 blog_addr = "http://sociallearnlab.org/xiuli/?feed=rss2"
 
 def rss_parser(rssaddr):
@@ -52,12 +52,11 @@ def store_recoder(blog):
     blog_time = parser.parse(updated) ## 解析日期
     my_d = blog_time.strftime("%Y-%m-%d %H")
     my_time = datetime.datetime.strptime(my_d, "%Y-%m-%d %H") ## 转换成rrule可读日期对象
-    
     td_now = datetime.datetime.now()
 
     days = rrule.rrule(rrule.DAILY, dtstart=my_time, until=td_now).count() ## 获取RSS日期与当前日期所差天数 
 
-    if 0 <= days <= MAX_DAYS:
+    if 0 <= days <= MAX_DT_DAYS:
         return True
     else:
         return False

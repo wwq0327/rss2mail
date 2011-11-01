@@ -31,15 +31,17 @@ def read_blog(entries):
 
 def store_recoder(blog):
     updated_time = blog['updated']
-    print updated_time
+    #print updated_time
     blog_time = parser.parse(updated_time)
+    my_d = blog_time.strftime("%Y-%m-%d %H")
+    my_time = datetime.datetime.strptime(my_d, "%Y-%m-%d %H")
     
     td_now = datetime.datetime.now()
 
-    days = rrule.rrule(rrule.DAILY, dtstart=blog_time, until=td_now).count()
+    days = rrule.rrule(rrule.DAILY, dtstart=my_time, until=td_now).count()
     #print days
 
-    if days == 2 or days == 1:
+    if 0 <= days <= 10:
         print blog['title']
     else:
         print '无记录'

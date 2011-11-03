@@ -87,7 +87,11 @@ def main():
     r = BlogRSS('http://linuxtoy.org/?feed=rss2')
     d = r.blog_parser()
     rss_dict = r.feed(d)
-    print rss_dict
+    #print rss_dict
+    for d in rss_dict:
+        print "===========================\n"
+        for k, v in d.items():
+            print k, '==>', v
 
 if __name__ == '__main__':
     main()
